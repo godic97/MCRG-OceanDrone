@@ -1,3 +1,3 @@
 # MCRG_OceanDrone
-/* This is project of Micro Computer research group of PNU.
+/* This is a project of Micro Computer research group of PNU.
 */
