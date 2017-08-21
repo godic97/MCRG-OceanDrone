@@ -20,12 +20,12 @@ long angleServo = setupServo;
 bool controlMode = passiveMode;
 
 // Read Data(BLDC's Speed, Servo's Angle, Mode)
-void dataRead(&speedBLDC, &angleServo, &controlMode){
-  if(Serial1.available()){
-    long data = Serial1.read();
-    speedBLDC = data % ; // Speed data is 
-    angleServo = data % ;// Angle data is
-    mode = data % ; // Mode data is true or false
+void dataRead(long &_speedBLDC,long &_angleServo,bool &_controlMode){
+  if(Serial.available()){
+    long data = Serial.read();
+    _speedBLDC = data ; // Speed data is 
+    _angleServo = data ; // Angle data is
+    _controlMode = data ; // Mode data is true or false
   }
 }
 
