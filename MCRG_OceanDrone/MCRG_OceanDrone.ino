@@ -9,6 +9,5 @@ void setup() {
 }
 
 void loop() {
-  dataRead(speedBLDC,angleServo,controlMode);
-
+  readData(speedBLDC,angleServo,controlMode);
 }
