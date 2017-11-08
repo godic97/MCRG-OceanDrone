@@ -8,7 +8,7 @@
 // Setup Data
 #define setupBLDC 0
 #define setupServo 0
-LiquidCrystal_I2C lcd(0x3F,16,2);
+LiquidCrystal_I2C lcd(0x3F,16,2); // A-> A4 L->A5
 
 // Mode
 #define passiveMode false
