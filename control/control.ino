@@ -1,17 +1,27 @@
 #include "control.h"
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
-
+int b = 0;
 
 void setup() {
-  Serial.begin(9600);'
+  Serial.begin(9600);
   pinMode(switchPin, INPUT);
   digitalWrite(switchPin, HIGH);
+  initControl();
   lcd.init();
   lcd.backlight();
   printString("Start Control");
+  delay(1000);
 }
 
 void loop() {
-  //sendData(speedBLDC,angleServo,controlMode);
+  /*if(Serial.available()){
+     char a = Serial.read();
+     lcd.setCursor(0, (b++)%2);
+     lcd.print(a);
+  }*/
+  lcd.clear();
+  readJoystick();
+  printJoystick();
+  delay(100);
 }
