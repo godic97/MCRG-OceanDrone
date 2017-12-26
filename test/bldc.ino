@@ -13,7 +13,7 @@ void loop(){
   char a = Serial.read();
   if(a == 'A')
     i += 5;
-  else
+  else if(a =="S")
     i -= 5;
   bldc.write(i);
   delay(15);
