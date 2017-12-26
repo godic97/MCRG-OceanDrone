@@ -16,4 +16,5 @@ void loop(){
   else
     i -= 5;
   bldc.write(i);
+  delay(15);
 }
