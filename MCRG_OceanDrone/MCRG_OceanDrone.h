@@ -6,7 +6,8 @@
 
 // Setup Data
 #define setupBLDC 0
-#define setupServo 0
+#define setupServo 90
+
 
 // Mode
 #define passiveMode false
@@ -16,20 +17,39 @@ Servo mainBLDC;
 Servo mainServo;
 
 long data = 0;
-long speedBLDC = setupBLDC;
-long angleServo = setupServo;
+int speedBLDC = setupBLDC;
+int angleServo = setupServo;
 bool controlMode = passiveMode;
 
 // Read Data(BLDC's Speed, Servo's Angle, Mode)
-void readData(long &_speedBLDC,long &_angleServo,bool &_controlMode){
-  if(Serial.available()) // if Serial is true.
+void readData(){
+  if(Serial.available()){ // if Serial is true.
     data = Serial.read();
-    
-  else // if serial is false
-    data = false;
+    if(data < 200)
+      angleServo = data;// Angle data is 0~180
+    else if (data >= 200)
+      speedBLDC = data - 200;
+  }
+//  else // if serial is false
+   // data = 9000;
 
-  _speedBLDC = data % 100; // Speed data is 0~99
-  _angleServo = (data / 100) % 100; // Angle data is 0~99
-  _controlMode = data / 10000; // Mode data is true or false(1 or 0)
+  
+   
+  //_controlMode = data / 10000; // Mode data is true or false(1 or 0)
+}
+void readServo(){
+    if(Serial.available()){ // if Serial is true.
+      data = Serial.read();
+      angleServo = data;
+    }
+    else  //if serial is false
+      data = false;
+}
+void runServo(){
+  mainServo.write(angleServo);
+}
+
+void runBLDC(){
+  mainBLDC.write(speedBLDC);
 }
 

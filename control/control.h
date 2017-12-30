@@ -5,11 +5,12 @@
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
-
 // Setup Pin
 // Motor
 #define setupBLDC 0
 #define setupServo 0
+
+
 
 // Joystick
 #define switchPin 2 // Digital Pin 2, Switch Output
@@ -39,13 +40,13 @@ void sendData(long tmpSpeedBLDC, long tmpAngleServo, bool tmpControlMode){
 
 // Init Control Data
 void initControl(){
-  long data = 0;
-  long speedBLDC = setupBLDC;
-  long angleServo = setupServo;
-  bool controlMode = passiveMode;
-  int xData = 497;
-  int yData = 501;
-  bool switchData = true;  
+  data = 0;
+  speedBLDC = setupBLDC;
+  angleServo = setupServo;
+  controlMode = passiveMode;
+  xData = 497;
+  yData = 501;
+  switchData = true;  
 }
 
 // Fuction of Print String on LCD
@@ -58,9 +59,9 @@ void printString(char* str){
 // Read Joystick Data
 void readJoystick(){
   xData = analogRead(xPin);
-  xData = map(xData, 1023, 0, 999, 0); // 0 ~ 999
+  xData = map(xData, 1023, 0, 180, 0); // 0 ~ 999
   yData = analogRead(yPin);
-  yData = map(yData, 1023, 0, 999, 0); // 0 ~ 999
+  yData = map(yData, 1023, 0, 50, 0); // 0 ~ 99
   switchData = digitalRead(switchPin);
 }
 
@@ -77,8 +78,25 @@ void printJoystick(){
   printString("X: ");
   printInt(xData);
   lcd.setCursor(0,1); // Chang Line
-  printString(" Y: ");
+  printString("Y: ");
   printInt(yData);
+}
+
+// Send Data
+void sendData(){
+  data = xData;
+  Serial.write(data);
+  //Serial.println(data);
+
+  //Serial.println(data);
+}
+
+void sendServo(){
+  Serial.write(xData);
+}
+
+void sendBLDC(){
+  Serial.write(yData+200);
 }
 
 #endif

@@ -22,6 +22,8 @@ void loop() {
   }*/
   lcd.clear();
   readJoystick();
+  sendServo();
+  sendBLDC();
   printJoystick();
   delay(100);
 }

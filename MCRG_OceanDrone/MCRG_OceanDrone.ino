@@ -5,9 +5,13 @@ void setup() {
   mainServo.attach(pinServo);
   mainBLDC.attach(pinBLDC);
   mainServo.write(setupServo);
-  mainBLDC.writeMicroseconds(setupBLDC);
+  mainBLDC.write(setupBLDC);
 }
 
 void loop() {
-  readData(speedBLDC,angleServo,controlMode);
+  if(Serial.available()){
+    readData();
+    runServo();
+    runBLDC();
+  }
 }
