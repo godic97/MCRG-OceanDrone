@@ -23,7 +23,8 @@ void loop() {
   lcd.clear();
   readJoystick();
   sendServo();
+  delay(50);
   sendBLDC();
   printJoystick();
-  delay(100);
+  delay(50);
 }

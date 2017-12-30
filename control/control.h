@@ -25,7 +25,7 @@ LiquidCrystal_I2C lcd(0x3F,16,2); // A-> A4 L->A5
 #define autoMode true
 
 // Setup Data
-long data = 0;
+int data = 0;
 long speedBLDC = setupBLDC;
 long angleServo = setupServo;
 bool controlMode = passiveMode;
@@ -44,8 +44,9 @@ void initControl(){
   speedBLDC = setupBLDC;
   angleServo = setupServo;
   controlMode = passiveMode;
+
   xData = 497;
-  yData = 501;
+  yData = 510;
   switchData = true;  
 }
 
@@ -59,9 +60,11 @@ void printString(char* str){
 // Read Joystick Data
 void readJoystick(){
   xData = analogRead(xPin);
-  xData = map(xData, 1023, 0, 180, 0); // 0 ~ 999
+  xData = map(xData, 0, 1023, 0, 180); // 0 ~ 999
   yData = analogRead(yPin);
-  yData = map(yData, 1023, 0, 50, 0); // 0 ~ 99
+  if(yData <= 520)
+    yData = 510;
+  yData = map(yData, 510, 1023, 0, 5); // 0 ~ 99
   switchData = digitalRead(switchPin);
 }
 
@@ -84,10 +87,9 @@ void printJoystick(){
 
 // Send Data
 void sendData(){
-  data = xData;
-  Serial.write(data);
+  data = xData + yData * 1000;
+  Serial.write(4090);
   //Serial.println(data);
-
   //Serial.println(data);
 }
 
@@ -96,7 +98,7 @@ void sendServo(){
 }
 
 void sendBLDC(){
-  Serial.write(yData+200);
+  Serial.write(yData + 200);
 }
 
 #endif
