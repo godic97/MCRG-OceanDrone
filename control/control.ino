@@ -21,10 +21,14 @@ void loop() {
      lcd.print(a);
   }*/
   lcd.clear();
+  readData();
   readJoystick();
   sendServo();
   delay(50);
   sendBLDC();
-  printJoystick();
+  if(!switchPin)
+    printJoystick();
+  else
+    printGamma();
   delay(50);
 }

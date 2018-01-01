@@ -3,6 +3,7 @@
 
 void setup() {
   Serial.begin(9600);
+  Wire.begin();
   mainServo.attach(pinServo);
   mainBLDC.attach(pinBLDC, 1000, 2000);
   mainServo.write(setupServo);
@@ -17,6 +18,7 @@ void loop() {
     //lcd.clear();
     runServo();
     runBLDC();
+    Gamma_Mod_Read_Value();
    //printt();
     
   }

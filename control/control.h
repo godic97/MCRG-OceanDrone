@@ -31,6 +31,7 @@ long angleServo = setupServo;
 bool controlMode = passiveMode;
 int xData = 497;
 int yData = 501;
+int value = 0;
 bool switchData = true;
 
 // Fuction of Sending Data
@@ -84,7 +85,19 @@ void printJoystick(){
   printString("Y: ");
   printInt(yData);
 }
+void printFloat(int num){
+  lcd.print(num/1000); // 1000
+  lcd.print((num/100) % 10); //100
+  lcd.print((num/10) % 10); // 10
+  lcd.print('.');
+  lcd.print(num % 10); // 1
+}
 
+void printGamma(){
+  printString("Gamma: ");
+  printFloat(value);
+  printString("uSv/min");
+}
 // Send Data
 void sendData(){
   data = xData + yData * 1000;
@@ -99,6 +112,12 @@ void sendServo(){
 
 void sendBLDC(){
   Serial.write(yData + 200);
+}
+
+void readData(){
+  if(Serial.available()){
+    value = Serial.read();
+  }
 }
 
 #endif
